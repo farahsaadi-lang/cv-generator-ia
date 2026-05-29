@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV & Lettre de Motivation — Générateur IA</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="8" fill="#0F6E56"/>
+          <path d="M8 10h16M8 16h10M8 22h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="22" r="4" fill="#5DCAA5"/>
+          <path d="M22.5 22l1 1 2-2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">CV<span class="logo-accent">Gen</span> IA</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <section class="hero">
+      <h1 class="hero-title">Créez votre CV et lettre de motivation <span class="hero-accent">en quelques clics</span></h1>
+      <p class="hero-sub">Renseignez vos informations, l'IA génère des documents professionnels, personnalisés et adaptés à votre poste cible.</p>
+    </section>
+
+    <div class="app-wrapper" id="app">
+      <!-- Sidebar Steps -->
+      <aside class="sidebar">
+        <div class="sidebar-label">Progression</div>
+        <div class="progress-track">
+          <div class="progress-line"><div id="progressLine" style="height:0%"></div></div>
+          <div class="steps-list">
+            <button class="step-item active" id="sb0" onclick="goTo(0)">
+              <div class="step-dot" id="sd0"><span>1</span></div>
+              <div class="step-info">
+                <div class="step-title">Informations</div>
+                <div class="step-sub">Vos coordonnées</div>
+              </div>
+            </button>
+            <button class="step-item" id="sb1" onclick="goTo(1)">
+              <div class="step-dot" id="sd1"><span>2</span></div>
+              <div class="step-info">
+                <div class="step-title">Formation</div>
+                <div class="step-sub">Diplômes & études</div>
+              </div>
+            </button>
+            <button class="step-item" id="sb2" onclick="goTo(2)">
+              <div class="step-dot" id="sd2"><span>3</span></div>
+              <div class="step-info">
+                <div class="step-title">Expériences</div>
+                <div class="step-sub">Parcours professionnel</div>
+              </div>
+            </button>
+            <button class="step-item" id="sb3" onclick="goTo(3)">
+              <div class="step-dot" id="sd3"><span>4</span></div>
+              <div class="step-info">
+                <div class="step-title">Compétences</div>
+                <div class="step-sub">Skills & langues</div>
+              </div>
+            </button>
+            <button class="step-item" id="sb4" onclick="goTo(4)">
+              <div class="step-dot" id="sd4"><span>5</span></div>
+              <div class="step-info">
+                <div class="step-title">Poste visé</div>
+                <div class="step-sub">Offre & préférences</div>
+              </div>
+            </button>
+            <button class="step-item" id="sb5" onclick="goTo(5)">
+              <div class="step-dot special" id="sd5"><span>✦</span></div>
+              <div class="step-info">
+                <div class="step-title">Génération IA</div>
+                <div class="step-sub">CV & lettre</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Form Area -->
+      <div class="form-area">
+        <!-- Step 0 -->
+        <section class="step-panel active" id="step0">
+          <div class="panel-header">
+            <div class="panel-icon">👤</div>
+            <h2>Informations personnelles</h2>
+            <p>Ces informations constituent l'en-tête de votre CV.</p>
+          </div>
+          <div class="field-grid two">
+            <div class="field"><label>Prénom *</label><input id="firstName" placeholder="Jean" /></div>
+            <div class="field"><label>Nom *</label><input id="lastName" placeholder="Dupont" /></div>
+          </div>
+          <div class="field-grid two">
+            <div class="field"><label>Email *</label><input type="email" id="email" placeholder="jean.dupont@email.com" /></div>
+            <div class="field"><label>Téléphone</label><input id="phone" placeholder="+33 6 12 34 56 78" /></div>
+          </div>
+          <div class="field-grid two">
+            <div class="field"><label>Ville / Localisation</label><input id="location" placeholder="Paris, France" /></div>
+            <div class="field"><label>LinkedIn (optionnel)</label><input id="linkedin" placeholder="linkedin.com/in/jean-dupont" /></div>
+          </div>
+          <div class="field"><label>Titre professionnel actuel</label><input id="jobTitle" placeholder="Ingénieur Data & IA" /></div>
+          <div class="field"><label>Résumé professionnel (optionnel)</label>
+            <textarea id="summary" rows="3" placeholder="Ingénieur passionné avec 5 ans d'expérience en machine learning et traitement de données..."></textarea>
+          </div>
+          <div class="nav-row"><div></div><button class="btn-next" onclick="goTo(1)">Formation →</button></div>
+        </section>
+
+        <!-- Step 1 -->
+        <section class="step-panel" id="step1">
+          <div class="panel-header">
+            <div class="panel-icon">🎓</div>
+            <h2>Formation</h2>
+            <p>Ajoutez vos diplômes, du plus récent au plus ancien.</p>
+          </div>
+          <div id="eduList"></div>
+          <button class="add-entry-btn" onclick="addEdu()">+ Ajouter une formation</button>
+          <div class="nav-row">
+            <button class="btn-back" onclick="goTo(0)">← Retour</button>
+            <button class="btn-next" onclick="goTo(2)">Expériences →</button>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section class="step-panel" id="step2">
+          <div class="panel-header">
+            <div class="panel-icon">💼</div>
+            <h2>Expériences professionnelles</h2>
+            <p>Listez vos postes, du plus récent au plus ancien.</p>
+          </div>
+          <div id="expList"></div>
+          <button class="add-entry-btn" onclick="addExp()">+ Ajouter une expérience</button>
+          <div class="nav-row">
+            <button class="btn-back" onclick="goTo(1)">← Retour</button>
+            <button class="btn-next" onclick="goTo(3)">Compétences →</button>
+          </div>
+        </section>
+
+        <!-- Step 3 -->
+        <section class="step-panel" id="step3">
+          <div class="panel-header">
+            <div class="panel-icon">⚡</div>
+            <h2>Compétences & Langues</h2>
+            <p>Renseignez vos compétences techniques et vos langues.</p>
+          </div>
+          <label class="field-label">Compétences techniques</label>
+          <div class="skill-input-row">
+            <input id="skillInput" placeholder="Python, Machine Learning, TensorFlow... (Entrée pour ajouter)" onkeydown="if(event.key==='Enter'){addSkill();event.preventDefault()}" />
+            <button class="skill-add-btn" onclick="addSkill()">Ajouter</button>
+          </div>
+          <div class="skills-cloud" id="skillsGrid"></div>
+          <label class="field-label" style="margin-top:1.5rem">Langues</label>
+          <div id="langList"></div>
+          <button class="add-entry-btn" onclick="addLang()">+ Ajouter une langue</button>
+          <div class="nav-row">
+            <button class="btn-back" onclick="goTo(2)">← Retour</button>
+            <button class="btn-next" onclick="goTo(4)">Poste visé →</button>
+          </div>
+        </section>
+
+        <!-- Step 4 -->
+        <section class="step-panel" id="step4">
+          <div class="panel-header">
+            <div class="panel-icon">🎯</div>
+            <h2>Poste visé</h2>
+            <p>Ces informations permettent à l'IA de personnaliser vos documents.</p>
+          </div>
+          <div class="field"><label>Intitulé du poste *</label><input id="targetJob" placeholder="Data Scientist, Développeur Full Stack, Chef de projet..." /></div>
+          <div class="field"><label>Entreprise cible (optionnel)</label><input id="targetCompany" placeholder="Google, BNP Paribas, Startup SaaS..." /></div>
+          <div class="field"><label>Description du poste (copier-coller l'offre)</label>
+            <textarea id="jobDesc" rows="6" placeholder="Copiez ici la description complète du poste pour que l'IA adapte votre candidature de manière optimale..."></textarea>
+          </div>
+          <div class="field-grid two">
+            <div class="field"><label>Ton des documents</label>
+              <select id="tone">
+                <option value="professionnel et formel">Professionnel & formel</option>
+                <option value="dynamique et moderne">Dynamique & moderne</option>
+                <option value="créatif et original">Créatif & original</option>
+              </select>
+            </div>
+            <div class="field"><label>Langue de sortie</label>
+              <select id="outLang">
+                <option value="français">Français</option>
+                <option value="anglais">Anglais</option>
+                <option value="arabe">Arabe</option>
+              </select>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="btn-back" onclick="goTo(3)">← Retour</button>
+            <button class="btn-next generate-cta" onclick="goTo(5)">✦ Générer →</button>
+          </div>
+        </section>
+
+        <!-- Step 5: Generate -->
+        <section class="step-panel" id="step5">
+          <div class="panel-header">
+            <div class="panel-icon">✨</div>
+            <h2>Génération IA</h2>
+            <p>Cliquez pour générer vos documents professionnels personnalisés.</p>
+          </div>
+        
+
+          <div class="generate-actions">
+            <button class="btn-gen cv-btn" id="genCVBtn" onclick="generate('cv')">
+              <div class="gen-icon">📄</div>
+              <div>
+                <div class="gen-label">Générer le CV</div>
+                <div class="gen-sub">Structuré & optimisé ATS</div>
+              </div>
+              <div class="spinner" id="spinCV" style="display:none"></div>
+            </button>
+            <button class="btn-gen lm-btn" id="genLMBtn" onclick="generate('lm')">
+              <div class="gen-icon">✉️</div>
+              <div>
+                <div class="gen-label">Générer la lettre</div>
+                <div class="gen-sub">Personnalisée & percutante</div>
+              </div>
+              <div class="spinner" id="spinLM" style="display:none"></div>
+            </button>
+          </div>
+
+          <div class="output-block" id="outputBlock" style="display:none">
+            <div class="output-tabs">
+              <button class="otab active" id="tabCV" onclick="switchTab('cv')">📄 CV</button>
+              <button class="otab" id="tabLM" onclick="switchTab('lm')">✉️ Lettre de motivation</button>
+            </div>
+            <div class="output-text" id="outputText"></div>
+            <div class="output-actions">
+              <button class="action-btn" onclick="copyOutput()">📋 Copier</button>
+              <button class="action-btn" onclick="downloadTxt()">⬇️ Télécharger .txt</button>
+              <button class="action-btn" onclick="downloadHtml()">🌐 Télécharger .html</button>
+            </div>
+          </div>
+          <div class="nav-row"><button class="btn-back" onclick="goTo(4)">← Retour</button><div></div></div>
+        </section>
+      </div>
+    </div>
+
+    <section class="features" id="about">
+      <h2 class="features-title">Comment ça fonctionne ?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feat-num">01</div>
+          <h3>Renseignez vos informations</h3>
+          <p>Complétez le formulaire guidé en 5 étapes : profil, formation, expériences, compétences et poste visé.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-num">02</div>
+          <h3>L'IA personnalise tout</h3>
+          <p>Le modèle Claude (Anthropic) analyse vos données et l'offre d'emploi pour créer des documents sur mesure.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-num">03</h3>
+          <p>Téléchargez & postulez</p>
+          <p>Exportez votre CV et lettre de motivation en .txt ou .html, prêts à envoyer ou à copier dans Word.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
